@@ -7,7 +7,7 @@
       "direction": "in",
       "name": "req",
       "methods": ["put"],
-      "route": "page/{name}"
+      "route": "page/{name}/{count}"
     },
     {
       "type": "cosmosDB",

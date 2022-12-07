@@ -7,12 +7,25 @@ def main(req: func.HttpRequest, doc: func.Out[func.Document]) -> func.HttpRespon
     logging.info('Python HTTP trigger function processed a request.')
 
     name = req.route_params.get('name')
+    count = req.route_params.get('count')
+    countInt = 0
+
+    if count:
+        try:
+            countInt = int(count) + 1
+        except Exception:
+            print(Exception)
+    else:
+        return func.HttpResponse(
+             "Invalid count",
+             status_code = 400
+        )
 
     if name:
         try:
             pageItem = {
                 "id": name,
-                "visits": 1
+                "visits": countInt
                 }
             doc.set(func.Document.from_dict(pageItem))
 
@@ -23,6 +36,6 @@ def main(req: func.HttpRequest, doc: func.Out[func.Document]) -> func.HttpRespon
             print(Exception)
     else:
         return func.HttpResponse(
-             "Pass a valid page name",
+             "Invalid name",
              status_code = 400
         )
