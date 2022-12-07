@@ -1,15 +1,15 @@
-import uuid
 import json
+# pip3 install --upgrade azure-cosmos. needed for below.
 from azure.cosmos import CosmosClient, PartitionKey
 
 import config
 
-databaseId = str('waihfun')
+databaseId = str('website')
 # Defines a partition key for container. Can just by "/id".
-partitionKey = PartitionKey(path='/pageId')
-containerId = str('pagevisits')
+partitionKey = PartitionKey(path='/id')
+containerId = str('page_visits')
 
-pages = ['index', 'projects']
+pages = ['index', '404', 'projects']
 
 # Creates a new client instance with the variables stored in config.py
 client = CosmosClient(
@@ -26,20 +26,23 @@ container = database.create_container_if_not_exists(id=containerId, partition_ke
 for p in pages:
     # Query's the container for matching pageId.
     result = container.query_items(
-        query="SELECT * FROM " + containerId + " c WHERE c.pageId = @pageId", 
-        parameters=[{"name": "@pageId", "value": p}],
+        query="SELECT * FROM " + containerId + " c WHERE c.id = @id", 
+        parameters=[{"name": "@id", "value": p}],
         enable_cross_partition_query=False)
 
+    # PROBLEM: Iterating through a iterator consumes it.
+    # Probably a better fix than just dumping the results into a list.
+    resultList = []
+    for r in result:
+        resultList.append(r)
+
     # If there are items returned then display the result else create the item.
-    if any(result):
-        # PROBLEM: Iterating through a iterator consumes it. This does nothing as it's empty after the If statement.
-        for i in result:
-            print(json.dumps(i, indent=False))
+    if any(resultList):
+        print('\nResult found:\n' + json.dumps(resultList, indent=False))
     else:
         print('Item ' + p + ' not found. Creating item.')
         # Creates the item.
         container.create_item({
-            'id': str(uuid.uuid4()),
-            'pageId': p,
+            'id': p,
             'visits': 0
         })
