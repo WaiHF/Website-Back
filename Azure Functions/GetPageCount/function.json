@@ -6,17 +6,18 @@
       "type": "httpTrigger",
       "direction": "in",
       "name": "req",
-      "methods": ["put"],
+      "methods": ["get"],
       "route": "page/{name}"
     },
     {
       "type": "cosmosDB",
-      "direction": "out",
-      "name": "cosmos",
+      "direction": "in",
+      "name": "doc",
       "databaseName": "website",
       "collectionName": "page_visits",
       "createIfNotExists": "false",
-      "connectionStringSetting": "AzureCosmosDBConnectionString"
+      "connectionStringSetting": "DbConnectionString",
+      "query": "SELECT * FROM p"
     },
     {
       "type": "http",

@@ -12,7 +12,7 @@ def main(req: func.HttpRequest, doc: func.Out[func.Document]) -> func.HttpRespon
         try:
             pageItem = {
                 "id": name,
-                "visits": 0
+                "visits": 1
                 }
             doc.set(func.Document.from_dict(pageItem))
 

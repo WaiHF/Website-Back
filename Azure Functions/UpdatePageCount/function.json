@@ -16,7 +16,7 @@
       "databaseName": "website",
       "collectionName": "page_visits",
       "createIfNotExists": "false",
-      "connectionStringSetting": "AzureCosmosDBConnectionString"
+      "connectionStringSetting": "DbConnectionString"
     },
     {
       "type": "http",
