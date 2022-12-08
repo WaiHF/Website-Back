@@ -1,0 +1,19 @@
+{
+  "scriptFile": "__init__.py",
+  "bindings": [
+    {
+      "type": "activityTrigger",
+      "direction": "in",
+      "name": "pageId"
+    },
+    {
+      "type": "cosmosDB",
+      "direction": "in",
+      "name": "doc",
+      "connectionStringSetting": "CosmosDBConnection",
+      "databaseName": "website",
+      "collectionName": "page_visits",
+      "sqlQuery": "SELECT page_visits.id, page_visits.visits FROM page_visits"
+    }
+  ]
+}
