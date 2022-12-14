@@ -6,7 +6,7 @@
       "name": "req",
       "type": "httpTrigger",
       "direction": "in",
-      "route": "orc/{funcName}/{page}",
+      "route": "orc/{funcName}",
       "methods": ["put"]
     },
     {

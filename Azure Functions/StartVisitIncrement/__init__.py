@@ -7,8 +7,9 @@ import azure.durable_functions as df
 async def main(req: func.HttpRequest, starter: str) -> func.HttpResponse:
     client = df.DurableOrchestrationClient(starter)
 
-    page = str(req.route_params.get('page')).lower()
-    payload = {"page": page}
+    payload = {
+        "page": str(req.params.get('page')).lower()
+        }
 
     instance_id = await client.start_new(req.route_params["funcName"], None, payload)
 
