@@ -9,7 +9,7 @@ databaseId = str('website')
 partitionKey = PartitionKey(path='/id')
 containerId = str('page_visits')
 
-pages = ['index', '404', 'projects']
+pages = ['index', '404', 'projects', 'contact']
 
 # Creates a new client instance with the variables stored in config.py
 client = CosmosClient(
