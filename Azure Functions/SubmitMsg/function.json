@@ -1,0 +1,25 @@
+{
+  "scriptFile": "__init__.py",
+  "bindings": [
+    {
+      "type": "httpTrigger",
+      "authLevel": "function",
+      "direction": "in",
+      "name": "req",
+      "methods": ["post"],
+      "route": "SubmitContactForm"
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "$return"
+    },
+    {
+      "type": "sendGrid",
+      "name": "sendGridMessage",
+      "direction": "out",
+      "apiKey": "SendgridAPIKey",
+      "from": "waihfun@gmail.com"
+    }
+  ]
+}
